@@ -25,9 +25,9 @@ const Signup = () => {
       <h2 className="text-xl font-bold mb-4">Sign Up</h2>
       {message && <p className="text-gray-700">{message}</p>}
       <form onSubmit={handleSignup} className="space-y-3">
-        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <input type="text" placeholder="Security Answer" value={securityAnswer} onChange={(e) => setSecurityAnswer(e.target.value)} required />
+        <p>Username:</p><input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <p>Password:</p><input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <p>Save for Password Reset Later:</p><input type="text" placeholder="Password Reset Answer" value={securityAnswer} onChange={(e) => setSecurityAnswer(e.target.value)} required />
         <button type="submit">Sign Up</button>
       </form>
     </div>

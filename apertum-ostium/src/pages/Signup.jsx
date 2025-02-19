@@ -27,7 +27,7 @@ const Signup = () => {
       <form onSubmit={handleSignup} className="space-y-3">
         <p>Username:</p><input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         <p>Password:</p><input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <p>Save for Password Reset Later:</p><input type="text" placeholder="Password Reset Answer" value={securityAnswer} onChange={(e) => setSecurityAnswer(e.target.value)} required />
+        <p>What is your favorite color? Save for Password Reset Later:</p><input type="text" placeholder="Password Reset Answer" value={securityAnswer} onChange={(e) => setSecurityAnswer(e.target.value)} required />
         <button type="submit">Sign Up</button>
       </form>
     </div>

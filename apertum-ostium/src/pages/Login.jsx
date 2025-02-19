@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { loginUser, setLoggedInUser } from "../db/indexedDB";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";  // ✅ Import Link for navigation
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -14,8 +14,8 @@ const Login = () => {
 
     if (result.success) {
       setLoggedInUser(username);
+      setUser(username);
       navigate("/");
-      window.location.reload(); // Redirect to homepage after login
     } else {
       setError(result.message);
     }
@@ -30,6 +30,11 @@ const Login = () => {
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border rounded" required />
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">Login</button>
       </form>
+
+      {/* ✅ Forgot Password Link */}
+      <div className="mt-4 text-center">
+        <Link to="/reset-password" className="text-blue-500 hover:underline">Forgot Password?</Link>
+      </div>
     </div>
   );
 };

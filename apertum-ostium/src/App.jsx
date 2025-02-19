@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Log from "./pages/Log";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";  // ✅ Import Reset Password page
 import ProtectedRoute from "./components/ProtectedRoute";
 import { logoutUser, getLoggedInUser } from "./db/indexedDB";
 import { useState, useEffect } from "react";
@@ -17,7 +18,7 @@ const App = () => {
   const handleLogout = () => {
     logoutUser();
     setUser(null);
-    window.location.reload(); // Reload to update UI
+    window.location.reload();
   };
 
   return (
@@ -25,13 +26,11 @@ const App = () => {
       <div className="p-4">
         <nav className="mb-4">
           {!user ? (
-            // Show Login/Signup when no user is logged in
             <>
               <Link to="/login" className="mr-4">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </>
           ) : (
-            // Show Home, View Logs, and Logout when logged in
             <>
               <Link to="/">Home</Link>
               <Link to="/log" className="ml-4">View Logs</Link>
@@ -41,8 +40,9 @@ const App = () => {
         </nav>
 
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />  {/* ✅ Add Reset Password route */}
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/log" element={<ProtectedRoute><Log /></ProtectedRoute>} />
         </Routes>

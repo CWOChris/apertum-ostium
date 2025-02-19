@@ -126,3 +126,9 @@ export const deleteEvent = async (id) => {
   const db = await initDB();
   return db.transaction(EVENT_STORE, "readwrite").objectStore(EVENT_STORE).delete(id);
 };
+
+export const updateEvent = async (event) => {
+    const db = await initDB();
+    await db.transaction("events", "readwrite").objectStore("events").put(event);
+  };
+  

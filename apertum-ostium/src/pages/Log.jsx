@@ -4,7 +4,7 @@ import { getEvents, deleteEvent, updateEvent } from "../db/indexedDB";
 const Log = () => {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
-  const [sortBy, setSortBy] = useState("date"); // Default sort by date
+  const [sortBy, setSortBy] = useState("all"); // Default to "All"
   const [filterDate, setFilterDate] = useState(""); // For filtering
 
   useEffect(() => {
@@ -37,13 +37,17 @@ const Log = () => {
       return new Date(a.date) - new Date(b.date);
     } else if (sortBy === "time") {
       return a.beginTime.localeCompare(b.beginTime);
-    }
-    return 0;
+    } 
+    return 0; // "All" keeps the original order
+  };
+
+  const handleClearFilter = () => {
+    setFilterDate(""); // ✅ Clears the date input field
   };
 
   const filteredEvents = events
     .filter(event => !filterDate || event.date === filterDate) // Apply date filter
-    .sort(handleSort); // Apply sorting
+    .sort(sortBy === "all" ? () => 0 : handleSort); // Apply sorting only if not "All"
 
   return (
     <div>
@@ -54,6 +58,7 @@ const Log = () => {
         <label>
           Sort by:
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="ml-2 p-2 border rounded">
+            <option value="all">All</option>  {/* ✅ Added "All" option */}
             <option value="date">Date</option>
             <option value="time">Time</option>
           </select>
@@ -62,6 +67,9 @@ const Log = () => {
           Filter by Date:
           <input type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} className="ml-2 p-2 border rounded" />
         </label>
+        <button onClick={handleClearFilter} className="bg-gray-500 text-white px-2 py-1 rounded">
+          Clear Filter
+        </button>  {/* ✅ Clear Filter Button */}
       </div>
 
       {filteredEvents.length === 0 ? (

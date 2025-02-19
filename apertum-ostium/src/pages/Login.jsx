@@ -14,7 +14,8 @@ const Login = () => {
 
     if (result.success) {
       setLoggedInUser(username);
-      navigate("/"); // Redirect to homepage after login
+      navigate("/");
+      window.location.reload(); // Redirect to homepage after login
     } else {
       setError(result.message);
     }
